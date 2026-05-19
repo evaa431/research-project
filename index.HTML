@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculus in Food Security: Aquaculture Growth Rate Visualizer</title>
+    <!-- Tailwind CSS for high-quality dashboard layouts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for smooth animations and rich visual feedback -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+
+    <header class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white shadow-md border-b border-emerald-700">
+        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-700/60 border border-emerald-500/30 text-emerald-100">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        SFM: Food Security & Bioscience Math Lab
+                    </span>
+                    <h1 class="text-3xl font-extrabold tracking-tight mt-2 text-white">Aquaculture Yield Optimization</h1>
+                    <p class="text-emerald-200 text-sm mt-1">Applying the First Derivative $f'(t)$ to maximize feed-efficiency and protein yields in Malaysian Red Tilapia production.</p>
+                </div>
+                <div class="bg-emerald-950/40 p-3 rounded-lg border border-emerald-600/30 text-xs text-emerald-100/90 max-w-xs self-start md:self-auto">
+                    <strong>📍 Location Focus:</strong> Ayer Lanas, Kelantan & major aquaculture hubs in Peninsular Malaysia.
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <section class="lg:col-span-1 space-y-6">
+            <!-- Bioscience Scenario Context -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2 mb-3">
+                    <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    The Bioscience Problem
+                </h2>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    With wild fisheries declining, intensive aquaculture of <strong>Red Tilapia (<i>Oreochromis niloticus</i>)</strong> represents a pillar of Malaysia's animal protein self-sufficiency. 
+                </p>
+                <p class="text-sm text-slate-600 leading-relaxed mt-2">
+                    To optimize food conversion ratios (FCR) and calculate the optimal harvest cycle, farm managers must monitor not just absolute body weight $f(t)$, but the **instantaneous rate of growth** $f'(t)$. Harvesting too early wastes growth potential; harvesting too late wastes expensive feed, as aging fish direct nutrients to metabolic maintenance instead of muscle gain.
+                </p>
+            </div>
+
+            <!-- The Mathematics of Growth Derivatives -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 mb-4">
+                    <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    Mathematical Formulations
+                </h3>
+                
+                <!-- Mathematical Function W(t) -->
+                <div class="space-y-4 text-sm">
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                        <span class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Absolute Growth Function: Weight $f(t)$</span>
+                        <div class="mono text-emerald-700 font-bold text-sm mt-1 overflow-x-auto whitespace-nowrap">
+                            f(t) = -0.00012t³ + 0.045t² + 0.5t + 5
+                        </div>
+                        <span class="block text-[11px] text-slate-400 mt-1">Output: Weight (g) over Day of Culture (t)</span>
+                    </div>
+
+                    <!-- Derivative Function W'(t) -->
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                        <span class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">First Derivative: Daily Growth Rate $f'(t)$</span>
+                        <div class="mono text-indigo-700 font-bold text-sm mt-1 overflow-x-auto whitespace-nowrap">
+                            f'(t) = -0.00036t² + 0.09t + 0.5
+                        </div>
+                        <span class="block text-[11px] text-slate-400 mt-1">Output: Daily Growth Velocity (grams/day)</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 border-t border-slate-100 pt-4 text-xs text-slate-500">
+                    <p class="font-semibold mb-1">Parameters based on realistic Malaysian farm benchmarks:</p>
+                    <ul class="list-disc pl-4 space-y-1">
+                        <li><strong>Start Weight:</strong> 5.0 grams (typical stocking fingerling).</li>
+                        <li><strong>Harvest Target:</strong> ~500g - 600g (at approx. 140-150 days).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="lg:col-span-2 space-y-6">
+            
+            <!-- Graphical Visualization Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Dynamic 150-Day Culture Growth Curve</h2>
+                        <p class="text-xs text-slate-500">Click anywhere on the graph line to inspect instantaneous rates at that cultural epoch.</p>
+                    </div>
+                    <div id="status-badge" class="px-3 py-1.5 bg-amber-50 border border-amber-200 text-amber-800 rounded-lg text-xs font-medium animate-pulse flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                        Click point to analyze
+                    </div>
+                </div>
+
+                <!-- Live Graph Element container -->
+                <div class="relative h-[320px] w-full bg-slate-50/50 rounded-xl p-2 border border-slate-100">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md border border-teal-500/20 overflow-hidden">
+                <!-- Highlight Indicator Header -->
+                <div class="bg-gradient-to-r from-teal-800 to-emerald-900 px-6 py-4 text-white flex justify-between items-center">
+                    <h3 class="text-md font-bold tracking-tight">Active Calculus Analysis Terminal</h3>
+                    <span class="text-xs bg-teal-700/60 text-teal-100 border border-teal-500/30 px-2 py-0.5 rounded" id="calcModeText">Defaults: Day 90 (Peak Growth Phase)</span>
+                </div>
+
+                <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Day Indicator -->
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 flex flex-col justify-between">
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Day of Culture (t)</span>
+                        <div>
+                            <span class="text-4xl font-extrabold text-slate-800 mono" id="metricDay">90</span>
+                            <span class="text-sm font-semibold text-slate-500 ml-1">Days</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-2">Adjusted timing post stocking.</p>
+                    </div>
+
+                    <!-- Computed Yield and Growth Velocity metrics -->
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-3">
+                        <div>
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Absolute Biomass f(t)</span>
+                            <span class="text-lg font-bold text-emerald-700 mono" id="metricWeight">--</span>
+                            <span class="text-xs text-slate-500 block">Individual Fish Mean Weight</span>
+                        </div>
+                        <hr class="border-slate-150">
+                        <div>
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Instantaneous Velocity f'(t)</span>
+                            <span class="text-lg font-bold text-indigo-700 mono" id="metricRate">--</span>
+                            <span class="text-xs text-slate-500 block">Growth Rate in grams/day</span>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Layman Explanation -->
+                    <div class="p-4 bg-teal-50/50 rounded-lg border border-teal-100 flex flex-col justify-between">
+                        <span class="text-xs font-bold text-teal-800 uppercase tracking-wider block mb-1">💡 SFM Precision Insight</span>
+                        <div class="text-xs text-slate-700 leading-relaxed flex-grow overflow-y-auto" id="laymanExplanation">
+                            Please click a point along the chart line to analyze historical bio-capacity data and retrieve automated diagnostic recommendations.
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-teal-100 flex items-center justify-between text-[10px] text-teal-700">
+                            <span>Diagnostic System</span>
+                            <span class="font-bold">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sustainable Food Management Context details & References -->
+            <div class="bg-slate-100/60 rounded-xl p-5 border border-slate-200 text-xs text-slate-600">
+                <h4 class="font-bold text-slate-800 mb-2">🎓 Academic Source Mapping for Food Security Thesis:</h4>
+                <p class="mb-3 leading-relaxed">
+                    This simulation’s parameters reflect baseline growth rates derived from the **Department of Fisheries (DoF) Malaysia** statistical reports on <i>Red Tilapia intensive pond production cycles</i>, and standard mathematical projections published by **MARDI (Malaysian Agricultural Research and Development Institute)** detailing regional sustainable aquaculture guidelines.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-200">
+                    <div>
+                        <span class="block font-semibold text-slate-700">Malaysian Data Reference Portal:</span>
+                        <a href="https://www.dof.gov.my" target="_blank" class="text-emerald-700 hover:underline inline-flex items-center gap-1">
+                            Department of Fisheries Malaysia Official Database
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    </div>
+                    <div>
+                        <span class="block font-semibold text-slate-700">Research & Technology Foundation:</span>
+                        <a href="https://www.mardi.gov.my" target="_blank" class="text-emerald-700 hover:underline inline-flex items-center gap-1">
+                            MARDI Freshwater Aquaculture Division
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mathematical core formulas
+        // f(t) = -0.00012t^3 + 0.045t^2 + 0.5t + 5
+        function evaluateF(t) {
+            return (-0.00012 * Math.pow(t, 3)) + (0.045 * Math.pow(t, 2)) + (0.5 * t) + 5;
+        }
+
+        // Derivative: f'(t) = -0.00036t^2 + 0.09t + 0.5
+        function evaluateFPrime(t) {
+            return (-0.00036 * Math.pow(t, 2)) + (0.09 * t) + 0.5;
+        }
+
+        // Set up the simulation variables for 150 days (intervals of 5 days for clarity)
+        const days = [];
+        const absoluteWeights = [];
+        const growthRates = [];
+
+        for (let i = 0; i <= 150; i += 5) {
+            days.push(i);
+            absoluteWeights.push(parseFloat(evaluateF(i).toFixed(2)));
+            growthRates.push(parseFloat(evaluateFPrime(i).toFixed(2)));
+        }
+
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        
+        // Define active point indicator array
+        let activePointDataset = Array(days.length).fill(null);
+        // Default highlight point initialized at Day 90 (index 18)
+        activePointDataset[18] = absoluteWeights[18];
+
+        const growthChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: days,
+                datasets: [
+                    {
+                        label: 'Tilapia Weight f(t) [Grams]',
+                        data: absoluteWeights,
+                        borderColor: '#059669',
+                        backgroundColor: 'rgba(5, 150, 105, 0.05)',
+                        borderWidth: 3,
+                        tension: 0.35,
+                        fill: true,
+                        yAxisID: 'yWeight',
+                        pointBackgroundColor: '#059669',
+                        pointHoverRadius: 9,
+                        pointHoverBackgroundColor: '#1d4ed8'
+                    },
+                    {
+                        label: "Instantaneous Growth Rate f'(t) [g/day]",
+                        data: growthRates,
+                        borderColor: '#6366f1',
+                        borderDash: [6, 4],
+                        borderWidth: 2,
+                        tension: 0.35,
+                        fill: false,
+                        yAxisID: 'yRate',
+                        pointRadius: 0,
+                        pointHoverRadius: 0
+                    },
+                    {
+                        label: 'Selected Point Highlight',
+                        data: activePointDataset,
+                        borderColor: '#f59e0b',
+                        backgroundColor: '#f59e0b',
+                        pointRadius: 8,
+                        pointHoverRadius: 10,
+                        showLine: false,
+                        yAxisID: 'yWeight'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'nearest',
+                    intersect: true,
+                    axis: 'x'
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                family: 'Inter',
+                                size: 11,
+                                weight: '500'
+                            },
+                            usePointStyle: true
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleFont: { family: 'JetBrains Mono', size: 12 },
+                        bodyFont: { family: 'Inter', size: 12 },
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label.includes('Selected')) return null;
+                                return ` ${context.dataset.label}: ${context.parsed.y}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Day of Culture (DoC) post stocking',
+                            color: '#475569',
+                            font: { family: 'Inter', size: 12, weight: '600' }
+                        },
+                        grid: { color: 'rgba(226, 232, 240, 0.6)' }
+                    },
+                    yWeight: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Individual Biomass f(t) [Grams]',
+                            color: '#059669',
+                            font: { family: 'Inter', size: 12, weight: '700' }
+                        },
+                        min: 0,
+                        max: 750,
+                        grid: { color: 'rgba(226, 232, 240, 0.6)' }
+                    },
+                    yRate: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: "Growth Velocity f'(t) [g/day]",
+                            color: '#6366f1',
+                            font: { family: 'Inter', size: 12, weight: '700' }
+                        },
+                        min: 0,
+                        max: 8,
+                        grid: { drawOnChartArea: false } // Prevents overlapping grid lines
+                    }
+                },
+                onClick: (event, activeElements) => {
+                    // Make sure a point along the dataset was clicked
+                    if (activeElements.length > 0) {
+                        const clickedElementIndex = activeElements[0].index;
+                        const targetDay = days[clickedElementIndex];
+                        updateSelectedPoint(targetDay, clickedElementIndex);
+                    }
+                }
+            }
+        });
+
+        function updateSelectedPoint(day, elementIdx) {
+            // Recalculate target mathematics
+            const weight = evaluateF(day);
+            const rate = evaluateFPrime(day);
+
+            // Update Highlight Marker dataset in Chart
+            activePointDataset = Array(days.length).fill(null);
+            activePointDataset[elementIdx] = parseFloat(weight.toFixed(2));
+            growthChart.data.datasets[2].data = activePointDataset;
+            growthChart.update('active');
+
+            // Set UI texts
+            document.getElementById('metricDay').innerText = day;
+            document.getElementById('metricWeight').innerText = `${weight.toFixed(1)} g`;
+            document.getElementById('metricRate').innerText = `${rate.toFixed(2)} g/day`;
+            document.getElementById('calcModeText').innerText = `Calculated Epoch: Day ${day}`;
+
+            // Provide biological interpretations contextual to derivatives
+            let message = "";
+            if (day <= 30) {
+                message = `🌱 <strong>Lag/Adjustment Phase:</strong> Low positive derivative of <strong>${rate.toFixed(2)} g/day</strong> shows fingerlings are adapting. Metabolisms are high but absolute biomass is slow. FCR management must focus on high-protein, easily digestible starter feeds. Keep water aeration consistent.`;
+            } else if (day > 30 && day <= 80) {
+                message = `⚡ <strong>Exponential Accel Phase:</strong> Your derivative is climbing quickly to <strong>${rate.toFixed(2)} g/day</strong>! The tissue synthesis velocity is rapidly increasing. DoF Malaysia guidelines suggest maintaining high dissolved oxygen (>5 mg/L) to match the rapidly expanding biological demand.`;
+            } else if (day > 80 && day <= 125) {
+                // Peak inflection region
+                const inflectionMsg = (day >= 120 && day <= 125) ? " <b>[Calculus Inflection Point! Maximum growth velocity achieved.]</b>" : "";
+                message = `🚀 <strong>Maximum Velocity Phase:</strong> The derivative is near or at its mathematical peak at <strong>${rate.toFixed(2)} g/day</strong>.${inflectionMsg} The fish are highly efficient converter protein engines. Keep feed amounts precise; overfeeding here causes high nutrient runoff in the effluents!`;
+            } else if (day > 125 && day <= 140) {
+                message = `📉 <strong>Diminishing Marginal Gains:</strong> Absolute weight reaches a healthy <strong>${weight.toFixed(1)} g</strong>, but notice that the derivative is declining to <strong>${rate.toFixed(2)} g/day</strong>. While still growing, rate is slowing down as resources are allocated to physiological maturity. Preparation for crop harvest planning is highly recommended.`;
+            } else {
+                message = `🛑 <strong>Harvest & Re-stock Threshold:</strong> Derivative has fallen to <strong>${rate.toFixed(2)} g/day</strong>. It is no longer cost-effective to feed this cohort. Keeping them past this threshold risks food-security margins since weight gain velocity is too flat. Clear the pond and start the next cohort cycle to maximize overall protein output!`;
+            }
+
+            document.getElementById('laymanExplanation').innerHTML = message;
+
+            // Flash active styling on status badge
+            const badge = document.getElementById('status-badge');
+            badge.classList.remove('animate-pulse');
+            badge.className = "px-3 py-1.5 bg-green-50 border border-green-200 text-green-800 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all duration-300";
+            badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-green-500"></span> Dynamic Point Selected`;
+        }
+
+        // Initialize display to show default values on boot
+        window.onload = function() {
+            updateSelectedPoint(90, 18);
+        }
+    </script>
+</body>
+</html>
